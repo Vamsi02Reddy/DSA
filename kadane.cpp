@@ -1,37 +1,30 @@
-//kadane's algorithm
-//when sum of the element becomes negative then do it as 0
-//array   
-
-#include <iostream>
-#include <climits>
-
-
+#include <bits/stdc++.h>
 using namespace std;
 
 int main()
 {
-    int n;
-    cin>>n;
-    int arr[n];
+    int arr[] = {1};
+    int n = sizeof (arr) / sizeof (arr[0]);
+    // if (n == 1 ) {
+    //     cout << "Max Subarray Sum in an array : " << arr[0];
+    // }
+    
+    bool all_negative=true;
+    int maxi=INT_MIN;
+    int cur_sum=0;
     for(int i=0;i<n;i++){
-        cin>>arr[i];
-    }
-    
-    int max_n=INT_MIN;
-    int curr_sum=0;
-    for (int i=0;i<n;i++){
-        curr_sum=curr_sum+arr[i];
-        if(curr_sum<0){
-            curr_sum=0;
-        }
-        else{       
-            max_n=max(max_n,curr_sum);
-        }
+        cur_sum=cur_sum+arr[i];
         
+        if(cur_sum<0){
+            cur_sum=0;
+        }
+        else{
+            all_negative=false;
+            maxi=max(maxi,cur_sum);
+        }
     }
-    cout<<max_n<<endl;
-    
-    
-
-    return 0;
-}
+    if(all_negative){  
+        maxi=*max_element(arr,arr+n);       ///if all elements in an array are negative
+    }
+    cout<<"Max Subarray Sum in an array : "<<maxi;
+}   
